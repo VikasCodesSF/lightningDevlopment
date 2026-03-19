@@ -1,0 +1,75 @@
+
+<template>
+    <lightning-card title="Apex Wire To Property Demo">
+        <div class="slds-p-around_medium">
+            <template if:true={accounts.data}>
+                <template for:each={accounts.data} for:item="account">
+                    <div class="slds-box slds-box_xx-small" key={account.Id}>
+                        <p><strong>Name : </strong> {account.Name}</p>
+                        <p><strong>Type : </strong> {account.Type}</p>
+                        <p><strong>Industry : </strong> {account.Industry}</p>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+
+
+    <lightning-card title="Apex Wire To function Demo">
+        <div class="slds-p-around_medium">
+            <template if:true={accountList}>
+                <template for:each={accountList} for:item="account">
+                    <div class="slds-box slds-box_xx-small" key={account.Id}>
+                        <p><strong>Name : </strong> {account.Name}</p>
+                        <p><strong>Type : </strong> {account.newType}</p>
+                        <p><strong>Industry : </strong> {account.Industry}</p>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+
+
+    
+    <lightning-card title="Apex Wire To Parameter function Demo">
+        <div class="slds-p-around_medium">
+            <lightning-combobox
+            label="Type"
+            value={selectedType}
+            placeholder="Select Type"
+            options={options}
+            onchange={handleChange} ></lightning-combobox>
+            <p>Selected value is: {selectedType}</p>
+            <template if:true={filterAccountList}>
+                <template for:each={filterAccountList} for:item="account">
+                    <div class="slds-box slds-box_xx-small" key={account.Id}>
+                        <p><strong>Name : </strong> {account.Name}</p>
+                        <p><strong>Type : </strong> {account.Type}</p>
+                        <p><strong>Industry : </strong> {account.Industry}</p>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+
+    <lightning-card title="Apex Wire To Parameter Property Demo">
+        <div class="slds-p-around_medium">
+            <lightning-combobox
+            label="Type"
+            value={selectedType}
+            placeholder="Select Type"
+            options={optionsProperty}
+            onchange={handleChange} ></lightning-combobox>
+            <p>Selected value is: {selectedType}</p>
+            <template if:true={wiredFilterAccountsProperty.data}>
+                <template for:each={wiredFilterAccountsProperty.data} for:item="account">
+                    <div class="slds-box slds-box_xx-small" key={account.Id}>
+                        <p><strong>Name : </strong> {account.Name}</p>
+                        <p><strong>Type : </strong> {account.Type}</p>
+                        <p><strong>Industry : </strong> {account.Industry}</p>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>
