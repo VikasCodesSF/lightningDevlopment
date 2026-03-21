@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="WireGetRatingPicklist" icon-name="custom:custom67">
+        <ul class="slds-var-m-around_medium">
+            <template for:each={ratings} for:item="rating" for:index="index">
+                <li key={rating.index}>
+                    {rating.label}
+                </li>
+            </template>
+        </ul>
+    </lightning-card>
+
+
+    <lightning-card title="WireGetRatingPicklist" icon-name="custom:custom67">
+        <lightning-combobox
+            label="Status"
+            value={value}
+            placeholder="Industry"
+            options={industryoptions}
+            onchange={handleChange} ></lightning-combobox>
+
+    <p>Selected value is: {value}</p>
+    </lightning-card>
+</template>

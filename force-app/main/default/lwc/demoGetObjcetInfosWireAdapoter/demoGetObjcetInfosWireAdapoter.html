@@ -1,0 +1,56 @@
+<template>
+    <lightning-card title="Get Object Api for Single object using function">
+        <div class="slds-var-m-around_medium">
+            <p>Record Type Id: <strong>{defaultRecordTypeIds}</strong></p>
+        </div>
+    </lightning-card>
+    <lightning-card title="Get Object Api for Single object using Property">
+        <div class="slds-var-m-around_medium"> 
+            <template lwc:if={ObjectInfoDataProperty.data}>     
+                <p>Object API Name: <strong>{ObjectInfoDataProperty.data.apiName}</strong></p>
+                <p>Object API Name: <strong>{ObjectInfoDataProperty.data.labelPlural}</strong></p>
+            </template> 
+            <template lwc:else>     
+                <p>No Data</p>
+            </template> 
+        </div>
+    </lightning-card>
+    <lightning-card title="Get Object Api for Multiple object using Function">
+        <div class="slds-var-m-around_medium"> 
+            <template lwc:if={objectInfos}> 
+                <template for:each={objectInfos.results} for:item="obj">
+                    <template if:true={obj.result}>
+                    <div key={obj.result.apiName}>
+                        <p>{obj.result.apiName}</p>
+                        <p>{obj.result.labelPlural}</p>
+                    </div>
+                    </template>
+                </template>
+            </template>  
+        </div>
+    </lightning-card>
+    <lightning-card title="Get Object Info for multiple objects (property)">
+    <div class="slds-var-m-around_medium">
+        <!-- Success path -->
+        <template if:true={objectInfosProperty.data}>
+            <template for:each={objectInfosResults} for:item="item">
+                <!-- Each element either has result or error -->
+                <template if:true={item.result}>
+                    <div key={item.result.apiName} class="slds-m-vertical_x-small">
+                        <p>API Name: <strong>{item.result.apiName}</strong></p>
+                        <p>Label: <strong>{item.result.label}</strong></p>
+                        <p>Plural Label: <strong>{item.result.labelPlural}</strong></p>
+                        <p>Default RT Id: <strong>{item.result.defaultRecordTypeId}</strong></p>
+                    </div>
+                </template>
+                <template if:true={item.error}>
+                    <div key={item.error} class="slds-text-color_error slds-m-vertical_x-small">
+                        Error loading one object’s info
+                    </div>
+                </template>
+            </template>
+        </template>
+    </div>
+</lightning-card>
+</template>
+
