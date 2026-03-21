@@ -1,5 +1,5 @@
 import { LightningElement, wire } from 'lwc';
-import { getObjectInfo, getPicklistValues } from "lightning/uiObjectInfoApi";
+import { getObjectInfo, getPicklistValues, getPicklistValuesByRecordType  } from "lightning/uiObjectInfoApi";
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
 import RATING_FIELD from "@salesforce/schema/Account.Rating";
 import INDUSTRY_FIELD from "@salesforce/schema/Account.Industry";
@@ -8,8 +8,13 @@ export default class DemoGetPicklistValue extends LightningElement {
 
     accountRecordTypeId;
     ratings;
-    industryoptions= [];
+    industryoptions = [];
     value;
+    Active;
+    SLA;
+    selectedActive;
+    selectedSLA;
+
 
     @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
     results({ error, data }) {
@@ -55,7 +60,7 @@ export default class DemoGetPicklistValue extends LightningElement {
         }
     }
 
-    handleChange(event){
+    handleChange(event) {
         this.value = event.detail.value;
     }
 
@@ -65,5 +70,35 @@ export default class DemoGetPicklistValue extends LightningElement {
                 label: item.label,
                 value: item.value
             }))
+    }
+
+
+    @wire(getPicklistValuesByRecordType, { objectApiName: ACCOUNT_OBJECT, recordTypeId: "$objectInfoData.data.defaultRecordTypeId"})
+    allPicklists({data, error}){
+        if(data){
+            this.Active = [... this.gemneratePicklist(data.picklistFieldValues.Active__c)];
+            console.log('Active', this.Active)
+            this.SLA = [... this.gemneratePicklist(data.picklistFieldValues.SLA__c)];
+            console.log('SLA',this.SLA)
+        }else if(error){
+            this.error = error;
+            this.industry = undefined;
+        }
+    }
+
+    handlePicklisthange(event) {
+        const value = event.detail.value;
+        const label = event.target.label?.toLowerCase();
+
+        // Prefer a name attribute if provided; fallback to label heuristic
+        const name = event.target.name ? String(event.target.name).toLowerCase() : label;
+
+        if (name === 'active' || label === 'active') {
+            this.selectedActive = value;
+        } else if (name === 'sla' || label === 'sla') {
+            this.selectedSLA = value;
+        }
+        // Optional: log safely
+        // console.log(`picklist change: ${name} -> ${value}`);
     }
 }

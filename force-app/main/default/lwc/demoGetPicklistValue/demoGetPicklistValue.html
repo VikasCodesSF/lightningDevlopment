@@ -17,7 +17,23 @@
             placeholder="Industry"
             options={industryoptions}
             onchange={handleChange} ></lightning-combobox>
+    </lightning-card>
 
-    <p>Selected value is: {value}</p>
+
+    <lightning-card title="getPicklistValuesByRecordType 1" icon-name="custom:custom67">
+        <lightning-combobox
+            label="Active"
+            value={selectedActive}
+            options={Active}
+            onchange={handlePicklisthange} ></lightning-combobox>
+    </lightning-card>
+
+
+    <lightning-card title="getPicklistValuesByRecordType 2" icon-name="custom:custom67">
+        <lightning-combobox
+            label="SLA"
+            value={selectedSLA}
+            options={SLA}
+            onchange={handlePicklisthange} ></lightning-combobox>
     </lightning-card>
 </template>
