@@ -1,5 +1,5 @@
 // wireGetRelatedListsInfo.js
-import { LightningElement, wire } from "lwc";
+import { LightningElement, wire, api } from "lwc";
 import { getRelatedListsInfo } from "lightning/uiRelatedListApi";
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
 
@@ -8,9 +8,10 @@ import ACCOUNT_OBJECT from "@salesforce/schema/Account";
 export default class WireGetRelatedListsInfo extends LightningElement {
   error;
   relatedLists;
+  @api recordId;
   @wire(getRelatedListsInfo, {
     parentObjectApiName: ACCOUNT_OBJECT.objectApiName,
-    recordTypeId: "001NS00002XTBM0YAP", //optional
+    recordTypeId: "$recordId", //optional
   })
   listInfo({ error, data }) {
     if (data) {
