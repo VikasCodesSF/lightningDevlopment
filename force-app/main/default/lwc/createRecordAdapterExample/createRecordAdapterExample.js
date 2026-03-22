@@ -5,6 +5,7 @@ import ACCOUNT_NAME from '@salesforce/schema/Account.Name';
 import ACCOUNT_PHONE from '@salesforce/schema/Account.Phone';
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
+
 export default class CreateRecordAdapterExample extends LightningElement {
 
     accountName;
