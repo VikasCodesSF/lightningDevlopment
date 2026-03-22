@@ -1,0 +1,14 @@
+<!-- Use this wire adapter to get the metadata for RelatedList. -->
+<template>
+  <lightning-card title="wireGetRelatedListInfo">
+    <template lwc:if={displayColumns}>
+      <div class="slds-m-around_medium">
+        <template for:each={displayColumns} for:item="col">
+          <p key={col.fieldApiName}><strong>{col.label}</strong></p>
+          <p key={col.fieldApiName}>{col.fieldApiName}</p>
+          <p key={col.fieldApiName}>{col.dataType}</p>
+        </template>
+      </div>
+    </template>
+  </lightning-card>
+</template>
