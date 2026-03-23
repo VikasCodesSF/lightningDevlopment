@@ -1,0 +1,15 @@
+<template>
+  <lightning-card title="getRecordAdaptor">
+    <template lwc:if={accountData}>
+      <div class="">
+        <p>Name : {name}</p>
+        <p>Owner Name : {ownerName}</p>
+        <p>Phone : {phone}</p>
+        <p>Industry : {industry}</p>
+      </div>
+    </template>
+    <template lwc:if={error}>
+      <div class="slds-text-color_error">Error loading record</div>
+    </template>
+  </lightning-card>
+</template>
