@@ -1,0 +1,13 @@
+<template>
+  <lightning-card title="getRecordAdaptor">
+    <template lwc:if={wiredRecords.data}>
+      <div class="">
+        <p>Account Phone : {accountPhone}</p>
+        <p>Contact Phone  : {contactPhone}</p>
+      </div>
+    </template>
+    <template lwc:if={error}>
+      <div class="slds-text-color_error">Error loading record</div>
+    </template>
+  </lightning-card>
+</template>
