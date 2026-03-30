@@ -1,0 +1,14 @@
+<template>
+    <div>
+        <lightning-datatable
+            key-field="employeeId"
+            data={contactData}
+            columns={contactColumns}
+            onrowaction={handleRowAction}
+            hide-checkbox-column
+            show-row-number-column
+            row-number-offset="1">
+        </lightning-datatable>
+    </div>
+    
+</template>
