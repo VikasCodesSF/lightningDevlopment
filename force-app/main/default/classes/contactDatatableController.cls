@@ -16,7 +16,6 @@ public class contactDatatableController {
             SELECT Id, AccountId, Name, Account.Name, Phone, Email,
                    MailingStreet, MailingCity, MailingState, MailingPostalCode, MailingCountry
             FROM Contact
-            LIMIT 5
         ];
     }
 }

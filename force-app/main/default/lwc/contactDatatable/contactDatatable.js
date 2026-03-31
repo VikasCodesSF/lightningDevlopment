@@ -33,6 +33,7 @@ export default class ContactDatatable extends LightningElement {
             label: 'Name', 
             fieldName: 'contactURL', 
             type: 'url', 
+            sortable: true,
             typeAttributes:{
                 label:{
                     fieldName: 'Name'
@@ -45,6 +46,7 @@ export default class ContactDatatable extends LightningElement {
             label: 'Account Name', 
             fieldName: 'accountURL', 
             type: 'url',
+            sortable: true,
             typeAttributes:{
                 label:{
                     fieldName: 'AccountName'
@@ -56,31 +58,38 @@ export default class ContactDatatable extends LightningElement {
         { 
             label: 'Phone', 
             fieldName: 'Phone', 
+            sortable: true,
             type: 'phone' 
         },
         { 
             label: 'Email', 
             fieldName: 'Email', 
+            sortable: true,
             type: 'email' 
         },
         { 
             label: 'Street', 
+            sortable: true,
             fieldName: 'Street' 
         },
         { 
-            label: 'City', 
+            label: 'City',
+            sortable: true, 
             fieldName: 'City' 
         },
         { 
             label: 'State', 
+            sortable: true,
             fieldName: 'State' 
         },
         { 
             label: 'Country', 
+            sortable: true,
             fieldName: 'Country' 
         },
         { 
             label: 'Postal Code', 
+            sortable: true,
             fieldName: 'PostalCode' 
         },
         {
@@ -91,7 +100,6 @@ export default class ContactDatatable extends LightningElement {
             }    
         }
     ];
-
 
     connectedCallback() {
         // Imperative Apex call to retrieve Contacts.
@@ -154,4 +162,50 @@ export default class ContactDatatable extends LightningElement {
             break;
         }
     }
+
+     // * Sorting Attribute
+    sortBy = 'Name';
+    sortDirection = 'asc';
+    defaultSortDirection = 'asc';
+
+    doSorting(event) {
+        this.sortBy = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        this.sortData(this.sortBy, this.sortDirection, this.primer);
+    }
+
+    primer(fieldname, record) {
+        let returnValue;
+        switch (fieldname) {
+            case 'contactURL':
+                returnValue = record['Name'];
+                break;
+            case 'accountURL':
+                returnValue = record['AccountName'];
+                break;
+            default:
+                returnValue = record[fieldname];
+                break;
+        }
+        return returnValue;
+    }
+
+    sortData(fieldname, direction, primerFn) {
+        const parseData = JSON.parse(JSON.stringify(this.contactData));
+        // Determine the value extractor, honoring the primer (for URL fields)
+        const keyValue = primerFn
+            ? (row) => primerFn.call(this, fieldname, row)
+            : (row) => row[fieldname];
+
+        const isReverse = direction === 'asc' ? 1 : -1;
+
+        parseData.sort((a, b) => {
+            const x = keyValue(a) ?? '';
+            const y = keyValue(b) ?? '';
+            return isReverse * ((x > y) - (y > x));
+        });
+
+        this.contactData = parseData;
+    }
+
 }
