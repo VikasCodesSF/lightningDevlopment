@@ -13,7 +13,7 @@ public class contactDatatableController {
     @AuraEnabled(cacheable=true)
     public static List<Contact> getContacts(){
         return [
-            SELECT Id, AccountId, Name, Account.Name, Phone, Email,
+            SELECT Id, AccountId, Name, Account.Name, Phone, Email, LeadSource,
                    MailingStreet, MailingCity, MailingState, MailingPostalCode, MailingCountry
             FROM Contact
         ];

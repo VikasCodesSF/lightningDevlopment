@@ -7,6 +7,7 @@ import getContacts from '@salesforce/apex/contactDatatableController.getContacts
 export default class ContactDatatable extends LightningElement {
     
     contactData = [];
+    originalContacts = [];
     error;
 
     // Row-level actions for the datatable (view/edit/delete)
@@ -34,6 +35,8 @@ export default class ContactDatatable extends LightningElement {
             fieldName: 'contactURL', 
             type: 'url', 
             sortable: true,
+            wrapText: true,
+            hideDefaultActions: true,
             typeAttributes:{
                 label:{
                     fieldName: 'Name'
@@ -47,6 +50,8 @@ export default class ContactDatatable extends LightningElement {
             fieldName: 'accountURL', 
             type: 'url',
             sortable: true,
+            wrapText: true,
+            hideDefaultActions: true,
             typeAttributes:{
                 label:{
                     fieldName: 'AccountName'
@@ -59,37 +64,66 @@ export default class ContactDatatable extends LightningElement {
             label: 'Phone', 
             fieldName: 'Phone', 
             sortable: true,
+            wrapText: true,
+            hideDefaultActions: true,
             type: 'phone' 
         },
         { 
             label: 'Email', 
             fieldName: 'Email', 
             sortable: true,
+            wrapText: true,
+            hideDefaultActions: true,
             type: 'email' 
         },
         { 
             label: 'Street', 
             sortable: true,
+            wrapText: true,
+            hideDefaultActions: true,
             fieldName: 'Street' 
         },
         { 
             label: 'City',
             sortable: true, 
+            wrapText: true,
+            hideDefaultActions: true,
             fieldName: 'City' 
         },
         { 
             label: 'State', 
             sortable: true,
+            wrapText: true,
+            hideDefaultActions: true,
             fieldName: 'State' 
         },
         { 
             label: 'Country', 
             sortable: true,
+            wrapText: true,
+            hideDefaultActions: true,
             fieldName: 'Country' 
+        },
+        { 
+            label: 'Lead Source', 
+            sortable: true,
+            wrapText: true,
+            hideDefaultActions: true,
+            fieldName: 'LeadSource',
+            actions:[
+                { label: 'All' , checked: true, name: 'all'}, 
+                { label: 'Web',  checked: false, name: 'web'}, 
+                { label: 'Phone Inquiry',  checked: false, name: 'phone_inquiry' }, 
+                { label: 'Partner Referral',  checked: false, name: 'partner_referral' }, 
+                { label: 'Purchased List',  checked: false, name: 'purchased_list' }, 
+                { label: 'Other',  checked: false, name: 'other' }
+            ]
         },
         { 
             label: 'Postal Code', 
             sortable: true,
+            wrapText: true,
+            hideDefaultActions: true,
             fieldName: 'PostalCode' 
         },
         {
@@ -134,6 +168,7 @@ export default class ContactDatatable extends LightningElement {
             // eslint-disable-next-line no-console
             console.log('Contact Data', JSON.stringify(rows));
             this.contactData = rows;
+            this.originalContacts = rows;
         })
         .catch(error => {
             // Surface and store errors for troubleshooting
@@ -208,4 +243,22 @@ export default class ContactDatatable extends LightningElement {
         this.contactData = parseData;
     }
 
+
+    handleHeaderAction(event){
+        console.log('Header Action', JSON.stringify(event.detail));
+        const {action, columnDefinition} = event.detail;
+        const contactColumns = this.contactColumns;
+        const actions = contactColumns.find(contactColumns => contactColumns.fieldName === columnDefinition.fieldName)?.actions;
+        if(actions){
+            actions.forEach(currentAction =>{
+                currentAction.checked = currentAction.name === action.name;
+            });
+            this.contactColumns = [...contactColumns];
+            if(action.name === 'all'){
+                this.contactData = this.originalContacts;
+            }else{
+                this.contactData = this.originalContacts.filter(contacts => contacts.LeadSource === action.label);
+            }
+        }
+    }
 }
