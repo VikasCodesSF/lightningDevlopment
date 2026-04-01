@@ -1,4 +1,6 @@
 <template>
+    <lightning-card title="Lightning Datatable with Auto Columns width">
+    <!-- Columns width = Auto -->
     <div>
         <lightning-datatable
             key-field="Id"
@@ -12,8 +14,39 @@
             onheaderaction={handleHeaderAction}
             hide-checkbox-column
             show-row-number-column
+            resize-column-disabled 
+            column-widths-mode="auto" 
             row-number-offset="0">
         </lightning-datatable>
     </div>
+
+    </lightning-card>
+
+    <br>
+
+    <lightning-card title="Lightning Datatable with Fixed Columns width">
+    <!-- Columns width = Auto -->
+    <div>
+        <lightning-datatable
+            key-field="Id"
+            data={contactData}
+            columns={contactColumns}
+            onrowaction={handleRowAction}
+            sorted-by={sortBy}
+            default-sort-direction={defaultSortDirection}
+            sorted-direction={sortDirection}
+            onsort={doSorting}
+            onheaderaction={handleHeaderAction}
+            show-row-number-column
+            resize-column-disabled 
+            column-widths-mode="fixed" 
+            min-column-width="120"
+            row-number-offset="0"
+            selected-rows={selectedRows}
+            onrowselection={handleRowSelection}>
+        </lightning-datatable>
+    </div>
+
+    </lightning-card>
     
 </template>

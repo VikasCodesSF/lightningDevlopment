@@ -9,6 +9,7 @@ export default class ContactDatatable extends LightningElement {
     contactData = [];
     originalContacts = [];
     error;
+    selectedRows = [];
 
     // Row-level actions for the datatable (view/edit/delete)
     rowActions = [
@@ -34,8 +35,7 @@ export default class ContactDatatable extends LightningElement {
             label: 'Name', 
             fieldName: 'contactURL', 
             type: 'url', 
-            sortable: true,
-            wrapText: true,
+            sortable: true, //R
             hideDefaultActions: true,
             typeAttributes:{
                 label:{
@@ -50,8 +50,8 @@ export default class ContactDatatable extends LightningElement {
             fieldName: 'accountURL', 
             type: 'url',
             sortable: true,
-            wrapText: true,
             hideDefaultActions: true,
+            initialWidth: 150,
             typeAttributes:{
                 label:{
                     fieldName: 'AccountName'
@@ -64,50 +64,46 @@ export default class ContactDatatable extends LightningElement {
             label: 'Phone', 
             fieldName: 'Phone', 
             sortable: true,
-            wrapText: true,
             hideDefaultActions: true,
-            type: 'phone' 
+            type: 'phone',
+            wrapText: true
         },
         { 
             label: 'Email', 
             fieldName: 'Email', 
             sortable: true,
-            wrapText: true,
             hideDefaultActions: true,
-            type: 'email' 
+            type: 'email',
+            wrapText: true 
         },
         { 
             label: 'Street', 
             sortable: true,
-            wrapText: true,
             hideDefaultActions: true,
+            initialWidth: 550,
             fieldName: 'Street' 
         },
         { 
             label: 'City',
             sortable: true, 
-            wrapText: true,
             hideDefaultActions: true,
             fieldName: 'City' 
         },
         { 
             label: 'State', 
             sortable: true,
-            wrapText: true,
             hideDefaultActions: true,
             fieldName: 'State' 
         },
         { 
             label: 'Country', 
             sortable: true,
-            wrapText: true,
             hideDefaultActions: true,
             fieldName: 'Country' 
         },
         { 
             label: 'Lead Source', 
             sortable: true,
-            wrapText: true,
             hideDefaultActions: true,
             fieldName: 'LeadSource',
             actions:[
@@ -122,7 +118,6 @@ export default class ContactDatatable extends LightningElement {
         { 
             label: 'Postal Code', 
             sortable: true,
-            wrapText: true,
             hideDefaultActions: true,
             fieldName: 'PostalCode' 
         },
@@ -168,7 +163,10 @@ export default class ContactDatatable extends LightningElement {
             // eslint-disable-next-line no-console
             console.log('Contact Data', JSON.stringify(rows));
             this.contactData = rows;
-            this.originalContacts = rows;
+            this.originalContacts = rows
+            this.selectedRows = contactData.slice(0,3).map(contact =>contact.Id);
+            console.log('this.selectedRows', JSON.stringify(this.selectedRows));
+            
         })
         .catch(error => {
             // Surface and store errors for troubleshooting
@@ -260,5 +258,12 @@ export default class ContactDatatable extends LightningElement {
                 this.contactData = this.originalContacts.filter(contacts => contacts.LeadSource === action.label);
             }
         }
+    }
+
+    // * This method will be called when a table row is selected
+    handleRowSelection(event){
+        console.log('this.handleRowSelection',(JSON.stringify(event.detail)));
+        this.selectedRows = event.detail.selectedRows.map(row => row.Id);
+        console.log('this.selectedRows',this.selectedRows);
     }
 }
