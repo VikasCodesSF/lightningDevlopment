@@ -43,7 +43,9 @@
             min-column-width="120"
             row-number-offset="0"
             selected-rows={selectedRows}
-            onrowselection={handleRowSelection}>
+            onrowselection={handleRowSelection}
+            enable-infinite-loading
+            onloadmore={loadContacts}>
         </lightning-datatable>
     </div>
 

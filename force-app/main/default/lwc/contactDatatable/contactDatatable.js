@@ -10,6 +10,10 @@ export default class ContactDatatable extends LightningElement {
     originalContacts = [];
     error;
     selectedRows = [];
+    
+    // For infinite Loading, define queryLimit and Offset
+    recordsLimit = 10;
+    totalRecords = 0;
 
     // Row-level actions for the datatable (view/edit/delete)
     rowActions = [
@@ -134,46 +138,7 @@ export default class ContactDatatable extends LightningElement {
         // Imperative Apex call to retrieve Contacts.
         // Note: Records returned from Apex can be non-extensible/proxied by the framework.
         // Never add properties directly to those objects; instead, shallow-clone per item.
-        getContacts()
-        .then(contactData => {
-            // Build a new array of plain objects; do not mutate wire/Apex-returned records.
-            const rows = contactData.map(c => {
-                // Shallow clone (plain, extensible object)
-                const row = { ...c };
-
-                // Flatten nested/compound fields to simple keys expected by the datatable
-                row.AccountName = c.Account?.Name;
-
-                // Convenience URLs for quick navigation from the datatable
-                row.accountURL = '/' + c.Account?.Id;
-                row.contactURL = '/' + c.Id;
-
-                // Prefer atomic fields; fallback to MailingAddress parts if present.
-                // This keeps UI resilient regardless of how Salesforce serializes Contact address data.
-                row.Street = c.MailingStreet ?? c.MailingAddress?.Street ?? null;
-                row.City = c.MailingCity ?? c.MailingAddress?.City ?? null;
-                row.State = c.MailingState ?? c.MailingAddress?.State ?? null;
-                row.Country = c.MailingCountry ?? c.MailingAddress?.Country ?? null;
-                row.PostalCode = c.MailingPostalCode ?? c.MailingAddress?.PostalCode ?? null;
-
-                return row;
-            });
-
-            // Assign the derived array to the property consumed by the datatable
-            // eslint-disable-next-line no-console
-            console.log('Contact Data', JSON.stringify(rows));
-            this.contactData = rows;
-            this.originalContacts = rows
-            this.selectedRows = contactData.slice(0,3).map(contact =>contact.Id);
-            console.log('this.selectedRows', JSON.stringify(this.selectedRows));
-            
-        })
-        .catch(error => {
-            // Surface and store errors for troubleshooting
-            // eslint-disable-next-line no-console
-            console.log('Error Contact:', error);
-            this.error = error;
-        })
+        this.queryContacts();
     }
 
     handleRowAction(event){
@@ -265,5 +230,63 @@ export default class ContactDatatable extends LightningElement {
         console.log('this.handleRowSelection',(JSON.stringify(event.detail)));
         this.selectedRows = event.detail.selectedRows.map(row => row.Id);
         console.log('this.selectedRows',this.selectedRows);
+    }
+    // * this method is used to load more contact
+    // * as the user scroll to the last record in the datatable
+
+    loadContacts(event){
+        console.log('this.loadContacts',(JSON.stringify(event.detail)));
+        this.queryContacts();
+    }
+
+    // * This method is used to query contacts based in the limit and offset
+    queryContacts(){
+        console.log('this.quering contacts...');
+        getContacts({
+            queryLimit: this.recordsLimit, //10 - First Time // 10 - Second Time
+            queryOffset: this.contactData.length //0 - First Time // 10 - Second Time
+        })
+        .then(contactData => {
+            // Build a new array of plain objects; do not mutate wire/Apex-returned records.
+            const rows = contactData.map(c => {
+                // Shallow clone (plain, extensible object)
+                const row = { ...c };
+
+                // Flatten nested/compound fields to simple keys expected by the datatable
+                row.AccountName = c.Account?.Name;
+
+                // Convenience URLs for quick navigation from the datatable
+                row.accountURL = '/' + c.Account?.Id;
+                row.contactURL = '/' + c.Id;
+
+                // Prefer atomic fields; fallback to MailingAddress parts if present.
+                // This keeps UI resilient regardless of how Salesforce serializes Contact address data.
+                row.Street = c.MailingStreet ?? c.MailingAddress?.Street ?? null;
+                row.City = c.MailingCity ?? c.MailingAddress?.City ?? null;
+                row.State = c.MailingState ?? c.MailingAddress?.State ?? null;
+                row.Country = c.MailingCountry ?? c.MailingAddress?.Country ?? null;
+                row.PostalCode = c.MailingPostalCode ?? c.MailingAddress?.PostalCode ?? null;
+
+                return row;
+            });
+
+            // Assign the derived array to the property consumed by the datatable
+            // eslint-disable-next-line no-console
+            console.log('Contact Data', JSON.stringify(rows));
+            const selectRows = this.contactData.length === 0;
+            this.contactData = this.contactData.concat(rows);
+            this.originalContacts = this.originalContacts.concat(rows);
+            if (selectRows){ // only programmatically select 3 records single time not on Infinite loading .
+                this.selectedRows = contactData.slice(0,3).map(contact =>contact.Id);
+            }
+            console.log('this.selectedRows', JSON.stringify(this.selectedRows));
+            
+        })
+        .catch(error => {
+            // Surface and store errors for troubleshooting
+            // eslint-disable-next-line no-console
+            console.log('Error Contact:', error);
+            this.error = error;
+        })
     }
 }
