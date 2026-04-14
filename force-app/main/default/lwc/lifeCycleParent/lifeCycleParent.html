@@ -1,0 +1,37 @@
+<template>
+    <lightning-card title="Parent Lifecycle Hook">
+
+    <!-- RenderCallBack Demo -->
+    <div class="slds-p-around_medium lgc-bg">
+        <lightning-input type="text" 
+            label="Enter some text"
+            onkeyup={changeHandler}>
+        </lightning-input>
+        {name}
+    </div>
+
+
+    <template if:false={isChildVisible}>
+        <lightning-button 
+            label="Show Child" 
+            variant="brand" 
+            onclick={handleClick} 
+            icon-name="utility:check">
+        </lightning-button>
+    </template>
+
+    <template if:true={isChildVisible}>
+        <lightning-button 
+            label="Remove Child" 
+            variant="brand" 
+            onclick={handleClick} 
+            icon-name="utility:check">
+        </lightning-button>
+    </template>
+
+    <template if:true={isChildVisible}>
+         <c-life-cycle-child></c-life-cycle-child>
+    </template>
+
+    </lightning-card>
+</template>
