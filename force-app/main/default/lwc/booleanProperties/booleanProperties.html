@@ -1,0 +1,19 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Hello" >
+    <div>
+        <lightning-spinner if:true={isLoading}
+        alternative-text="Loading" size="small">
+        </lightning-spinner>
+    </div>
+      <p>Show Value: {isLoading}</p>
+      <br> <br>
+      <template if:false={isLoading}>
+     <lightning-button variant="brand" label="Loading More" onclick={handleClick}></lightning-button>
+      </template>
+     <div>
+        <template if:true={isLoading}>
+    <lightning-button variant="brand" label="Stop Loading More" onclick={handleStopClick}></lightning-button>
+    </template>
+     </div>
+    </lightning-card>
+</template>
