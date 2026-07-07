@@ -2,7 +2,7 @@ import { LightningElement } from 'lwc';
 export default class Parent extends LightningElement {
     
     message='Data is passed from Parent to child and then child comp is added in parent and render on UI'
-    contacts = [
+    contacts = [ 
         {
             "Id":1,
             "FirstName":"Vikas",
