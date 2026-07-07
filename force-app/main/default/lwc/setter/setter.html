@@ -1,0 +1,14 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Hello" icon-name="standard:account">
+        <div class="slds-var-p-around_medium">
+            Count is {count}.
+        </div>
+        <span if:true={_message} style="color: red;">
+            {_message}
+        </span>
+
+        <div class="slds-var-p-around_medium">
+            <lightning-button variant="inverse" label="Increment" onclick={handleClick}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

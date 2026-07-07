@@ -1,0 +1,16 @@
+<template>
+     <lightning-card  variant="Narrow"  title="Hello" icon-name="custom:custom65">
+        <div>
+           <h1>Parent Component</h1>
+        </div>
+        <div>
+           <template lwc:if={contacts} for:each={contacts} for:item="con" for:index="index">
+                <c-child key={con.Id} contacts={con} component-type={message}></c-child>
+           </template>
+        </div>
+        <div class="slds-var-p-around_medium">
+           <span>Product Calculator</span>
+           <c-product-calculator></c-product-calculator>
+        </div>
+    </lightning-card>
+</template>
