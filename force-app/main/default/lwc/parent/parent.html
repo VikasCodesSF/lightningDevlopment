@@ -3,13 +3,21 @@
         <div>
            <h1>Parent Component</h1>
         </div>
+        {gretting}
         <div>
+           <lightning-button-group>
+            <lightning-button label="Hide Child Component" onclick={handleHide}></lightning-button>
+            <lightning-button label="Show Child Component" onclick={handleShow}></lightning-button>
+           </lightning-button-group>
+        </div>
+        <div lwc:if={showChild}>
+         <span>Child component</span>
            <template lwc:if={contacts} for:each={contacts} for:item="con" for:index="index">
                 <c-child key={con.Id} contacts={con} component-type={message}></c-child>
            </template>
         </div>
         <div class="slds-var-p-around_medium">
-           <span>Product Calculator</span> 
+           <span>Product Calculator</span>                                       
            <c-product-calculator></c-product-calculator>
         </div>
     </lightning-card>
