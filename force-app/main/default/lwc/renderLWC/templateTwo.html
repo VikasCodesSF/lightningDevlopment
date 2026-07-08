@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Template Two" icon-name="standard:account">
+        <div class="slds-var-m-around_medium">
+            <span>Template Two</span>
+        </div>
+         <div class="slds-var-m-around_medium">
+            <lightning-button-group>
+                <lightning-button label="Template One" onclick={showTemplateOneJS}></lightning-button>
+                <lightning-button label="Template Two"  onclick={showTemplateTwo}></lightning-button>
+                <lightning-button label="Default View"  onclick={showDefaultTemplate}></lightning-button>
+            </lightning-button-group>
+        </div>
+        <p slot="footer">Card Footer</p>
+    </lightning-card>
+</template>
