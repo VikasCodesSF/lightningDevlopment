@@ -1,0 +1,14 @@
+<template>
+    <lightning-card>
+         <div  class="slds-var-p-around_small">
+            <span>Child Component with Slot Demo</span>
+        </div>
+        <div  class="slds-var-p-around_small">
+        <slot></slot> <!-- if you remove this slot no info will be shown-->
+        </div>
+        <div  class="slds-var-p-around_small">
+         <!-- <slot></slot> --Avoid having 2 un named slot because LWC engine don't known which one to render first'-->
+         <slot name="button"></slot>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,14 @@
+<template>  
+        <lightning-card  variant="base"  title="Slot Component" icon-name="custom:custom65">
+            <lightning-button slot="actions"  label="Standard Slot example"></lightning-button>
+        <div  class="slds-var-p-around_small">
+            <span>Account List Componenrt with Slot Demo</span>
+            <c-slot-component>
+                <p>This content will be projected into the card body!</p>
+                <lightning-button slot="button" label="Click Here!" ></lightning-button>
+                <div>Any HTML content can go here</div>
+            </c-slot-component>
+        </div>
+    </lightning-card>
+
+</template>
