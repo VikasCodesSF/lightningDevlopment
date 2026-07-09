@@ -1,0 +1,12 @@
+<template>
+    <lightning-card  variant="base"  title="Shadow Component" icon-name="custom:custom65">
+        <div  class="slds-var-p-around_small">
+            <p> Parent Component</p>
+            <lightning-button label="Click Me!" onclick={handleClick}></lightning-button>
+        </div>
+        <div  class="slds-var-p-around_small">
+            <c-shadow-child></c-shadow-child>
+        </div>
+    </lightning-card>
+
+</template>
