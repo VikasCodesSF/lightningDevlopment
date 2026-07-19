@@ -1,8 +1,10 @@
 <template>
     <lightning-card title="Contact Manager">
-        <div class="slds-var-p-around_medium"  onselect={handleClick}>
-                <!---DOM Boundary--->
-                <c-contact-list></c-contact-list>
+        <div class="slds-var-p-around_medium"  onselect={handleSelectedClick}>
+                <c-contact-list lwc:ref="child"></c-contact-list>
         </div>
-    </lightning-card>
+        <div class="slds-var-p-around_medium">
+            <lightning-button variant="brand" label="Call Child" onclick={handleClick}></lightning-button>
+        </div>
+    </lightning-card> 
 </template>

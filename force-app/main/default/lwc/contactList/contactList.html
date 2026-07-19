@@ -2,7 +2,6 @@
     <lightning-card title="Contact List">
         <div class="slds-var-p-around_medium" onselect = {handleSelectEvent}>
             <template if:true={contacts} for:each={contacts} for:item="con">
-                <!---DOM Boundary--->
                 <c-contact-title key ={con.Id} contact={con}></c-contact-title>
             </template>
         </div>
