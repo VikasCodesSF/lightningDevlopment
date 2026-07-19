@@ -1,5 +1,6 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
 export default class ShadowParent extends LightningElement {
+
     handleClick(){
         let childComponent = this.template.querySelector('c-shadow-child');
         console.log('childComponent', childComponent);

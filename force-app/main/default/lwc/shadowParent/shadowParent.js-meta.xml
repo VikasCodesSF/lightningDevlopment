@@ -2,9 +2,12 @@
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
 	<isExposed>true</isExposed>
 	<apiVersion>67.0</apiVersion>
-	<targets>
-		<target>lightning__AppPage</target>
-		<target>lightning__HomePage</target>
-		<target>lightning__RecordPage</target>
-	</targets>
+	<masterLabel>Shadow Parent File</masterLabel>
+	<description> The Componnt will be used to demonstrate the usage of the Shadow XML file in LWC</description>
+		<targets>
+			<target>lightning__RecordPage</target>
+			<target>lightning__AppPage</target>
+			<target>lightning__HomePage</target>
+		</targets>
+
 </LightningComponentBundle>
