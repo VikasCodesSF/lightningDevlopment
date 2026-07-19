@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title="Communication Demo">
+      <div class="slds-p-horizontal_small">
+           {message} <br> {source}
+            <c-child-communication ondatachange = {handleDataChange}></c-child-communication>
+        </div>
+    </lightning-card>
+</template>

@@ -1,10 +1,16 @@
 <template>
-    <lightning-card title="Meta Data Demo LWC">
-        <div class="name-info">
-             {contact.FirstName} {contact.LastName}
-        </div>
-        <div class="other-info">
-            {contact.Email}
-        </div>
-    </lightning-card>
+    <a href="JavaScript:void(0);" onclick={handleClick}>
+        <lightning-layout>
+            <lightning-layout-item padding="around-small">
+                {contact.FirstName} {contact.LastName}
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                {contact.Email} - {contact.Phone}
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+            {contact.Title}
+            </lightning-layout-item>
+        </lightning-layout>
+    </a>
+    
 </template>
