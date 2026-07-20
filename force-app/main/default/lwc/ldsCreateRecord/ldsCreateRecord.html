@@ -1,0 +1,19 @@
+<template>
+    <lightning-card variant="Narrow" title="Create Record" icon-name="standard:account">
+        <div class="slds-p-horizontal_medium">
+            <!----TO OVERIDE success handler default behaviour on click of save 
+            Use onsubmit event & lwf:ref---->
+            <lightning-record-form
+                lwc:ref="accountRef"
+                object-api-name="Account"
+                mode="edit"
+                columns="2"
+                fields={fieldList}
+                onsuccess={handleSuccess}
+                onerror={handleError}
+                onsubmit={handleSubmit}
+            >
+            </lightning-record-form>
+        </div>
+    </lightning-card>
+</template>
