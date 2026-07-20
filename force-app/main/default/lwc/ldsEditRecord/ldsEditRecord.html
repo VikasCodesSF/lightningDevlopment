@@ -1,0 +1,32 @@
+<template>
+    <lightning-card variant="Narrow" title="Edit Record" icon-name="standard:account">
+        <div class="slds-p-horizontal_medium">
+            <lightning-record-form
+                record-id={recordId}
+                object-api-name={objectApiName}
+                mode="edit"
+                columns="2"
+                layout-type="Compact"
+                onsuccess={handleSuccess}
+                onerror={handleError}
+            >
+            </lightning-record-form>
+        </div>
+        <div class="slds-p-horizontal_medium">
+            <lightning-record-edit-form id="recordViewForm"
+                record-id={recordId}
+                object-api-name={objectApiName}
+                onsuccess={handleSuccess}
+                onerror={handleError}>
+                <lightning-messages></lightning-messages>
+                <lightning-output-field field-name="ParentId"></lightning-output-field>
+                <lightning-input-field field-name="Name"></lightning-input-field>
+                <lightning-input-field field-name="Rating"></lightning-input-field>
+                <lightning-input-field field-name="Industry"></lightning-input-field>
+                <lightning-input-field field-name="Description"></lightning-input-field>            
+                <lightning-input-field field-name="Active__c"></lightning-input-field>
+                <lightning-button type="submit" label="Update record"></lightning-button>
+            </lightning-record-edit-form>
+        </div>
+    </lightning-card>
+</template>
