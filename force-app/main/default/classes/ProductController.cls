@@ -22,10 +22,10 @@ public class ProductController {
     }
 
      @AuraEnabled(cacheable=true)
-    public static Product2 getProductByCode (String productCode) {
+    public static List<Product2>  getProductByCode (String productCode) {
         return [SELECT Id, Name, ProductCode, Description
                 FROM Product2
                 WHERE ProductCode = :productCode
-                LIMIT 1];
+                LIMIT 10];
     }
 }

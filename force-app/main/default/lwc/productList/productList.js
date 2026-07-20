@@ -5,6 +5,7 @@ export default class ProductList extends LightningElement {
     products;
     error;
     filteredProducts;
+    productCode= 'GC1060'
 
     // Wire with property
     @wire(getProducts)
@@ -19,7 +20,7 @@ export default class ProductList extends LightningElement {
     }
 
     // Wire with property
-    @wire(getProductByCode, {productCode: 'GC1060'})
+    @wire(getProductByCode, {productCode: "$productCode"})
     wiredProductCode({ error, data }) {
         if (data) {
             this.filteredProducts = data;
