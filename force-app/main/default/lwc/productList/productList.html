@@ -1,0 +1,29 @@
+<template>
+    <lightning-card variant="Narrow" title="Product List" icon-name="standard:product2">
+        <div class="slds-p-horizontal_medium">
+        <template if:true={products}>
+            <template for:each={products} for:item="product">
+                <div key={product.Id} class="slds-p-around_small">
+                    {product.Name} — {product.ProductCode}
+                </div>
+            </template>
+        </template>
+        <template if:true={error}>
+            <p class="slds-text-color_error">Error loading products.</p>
+        </template>
+        </div>
+        <br>
+        <div class="slds-p-horizontal_medium">
+        <template if:true={filteredProducts}>
+            <template for:each={filteredProducts} for:item="filteredProducts">
+                <div key={filteredProducts.Id} class="slds-p-around_small">
+                    {filteredProducts.Name} — {filteredProducts.ProductCode}
+                </div>
+            </template>
+        </template>
+        <template if:true={error}>
+            <p class="slds-text-color_error">Error loading products.</p>
+        </template>
+        </div>
+    </lightning-card>
+</template>
