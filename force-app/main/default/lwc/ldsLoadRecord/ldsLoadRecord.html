@@ -1,0 +1,28 @@
+<template>
+    <lightning-card variant="Narrow" title="Load Record" icon-name="standard:account">
+        <!--Example with layout-type-->
+        <div class="slds-p-horizontal_medium">
+            <lightning-record-form
+                record-id={recordId}
+                object-api-name={objectApiName}
+                mode="readonly"
+                columns="2"
+                layout-type="Compact"
+            >
+            </lightning-record-form>
+        </div>
+        <!--Example with fields-->
+        <br>
+        <span> lightning-record-form with fields </span>
+        <div class="slds-p-horizontal_medium">
+            <lightning-record-form
+                record-id={recordId}
+                object-api-name={objectApiName}
+                mode="readonly"
+                columns="2"
+                fields={fieldList}
+            >
+            </lightning-record-form>
+        </div>
+    </lightning-card>
+</template>
