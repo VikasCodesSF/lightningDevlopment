@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="Account Summary" icon-name="standard:account">
+        <template lwc:if={account.data}>
+            <div class="slds-var-p-around_medium">
+                <p><strong>{name}</strong> — {industry}</p>
+                <p>Annual Revenue: {formattedRevenue}</p>
+                <p>Created: {formattedCreatedDate}</p>
+
+                <template lwc:if={isHighValueAccount}>
+                    <lightning-badge label="High-Value Account"></lightning-badge>
+                </template>
+            </div>
+        </template>
+        <template lwc:if={account.error}>
+            <p class="slds-text-color_error">Unable to load account details.</p>
+        </template>
+    </lightning-card>
+</template>
