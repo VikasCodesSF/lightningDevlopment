@@ -1,0 +1,23 @@
+<!-- imperativeApex.html -->
+<template>
+    <lightning-card variant="Narrow" title="Imperative Apex" icon-name="standard:account">
+
+        <div class="slds-var-p-around_medium">
+            <template lwc:if={accounts} for:each={accounts} for:item="acc" for:index="index">
+                <p key={acc.Id}>{acc.Name}</p>
+            </template>
+        </div>
+
+        <div if:true={errors} class="slds-var-p-around_medium">
+            <span style="color: red;">
+                {errors.body.message}
+            </span>
+        </div>
+
+        <div class="slds-var-p-around_medium">
+            <lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner>
+            <lightning-button variant="brand" label="List Accounts" title="List Accounts" onclick={handleClick}></lightning-button>
+        </div>
+
+    </lightning-card>
+</template>
